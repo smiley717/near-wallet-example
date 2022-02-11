@@ -1,0 +1,37 @@
+{
+  "name": "wallet-example",
+  "description": "This example demonstrates how to integrate your application with NEAR Wallet. The contract is quite simple. It can store the account_id of last sender and return it. It also shows how you can debug contracts using logs.",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "node asconfig.js",
+    "dev:deploy:contract": "near dev-deploy && echo \"# This file used by parcel\nCONTRACT_NAME=$(cat neardev/dev-account)\" > .env.local",
+    "deploy:contract": "near deploy && rm -f .env.local",
+    "deploy:pages": "gh-pages -d src",
+    "deploy": "yarn build && yarn deploy:contract && yarn deploy:pages",
+    "prestart": "yarn build && yarn deploy:contract",
+    "start": "parcel src/index.html",
+    "asp": "asp --verbose",
+    "test": "asp && yarn jest",
+    "jest": "yarn build && jest test --env=near-shell/test_environment",
+    "dev": "yarn build && yarn dev:deploy:contract && parcel src/index.html"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.9.4",
+    "gh-pages": "^2.1.1",
+    "near-sdk-as": "^0.1.5",
+    "jest": "^25.2.3",
+    "jest-environment-node": "^25.2.3",
+    "near-shell": "^0.20.2",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "nearlib": "^0.22.0",
+    "regenerator-runtime": "^0.13.5"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/assembly/",
+      "<rootDir>/node_modules/"
+    ]
+  }
+}
